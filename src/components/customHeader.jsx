@@ -1,22 +1,37 @@
-import { StyleSheet, View, Text,  TouchableOpacity } from "react-native";
-import { useNavigation } from "expo-router";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { router, useNavigation } from "expo-router";
 import { DrawerActions } from "@react-navigation/native";
-import { EvilIcons, Ionicons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
-const CustomHeader = () => {
+
+const CustomHeader = ({ routeName, title }) => {
     const navigation = useNavigation();
 
+    const titles = {
+        index: "Ticket-Wise",
+        ticket: "Ticket",
+        profile: "Profile",
+    };
+
+    const headerTitle = titles[routeName] ?? title;
+
     return (
-        <SafeAreaView style={styles.safeArea} edges={['top']}>
+        <SafeAreaView style={styles.safeArea} edges={["top"]}>
             <View style={styles.header}>
                 <TouchableOpacity onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>
-                    <Ionicons size={28} name="menu-outline" color="#fff" />
+                    <Ionicons size={28} name="menu-outline" color="#14223B" />
                 </TouchableOpacity>
 
-               <Text className='text-xl text-white' >Hello</Text>
+                <Text style={styles.title}>
+                    <Text style={styles.title}>{headerTitle}</Text>
+                </Text>
 
-                <TouchableOpacity>
-                    <EvilIcons size={30} name="search" color="#fff" />
+                <TouchableOpacity
+                    style={styles.notificationButton}
+                    onPress={() => router.push("/(screens)/Notification")}
+                    activeOpacity={0.6}
+                >
+                    <Ionicons name="notifications-outline" size={18} color="#fff" />
                 </TouchableOpacity>
             </View>
         </SafeAreaView>
@@ -25,21 +40,29 @@ const CustomHeader = () => {
 
 const styles = StyleSheet.create({
     safeArea: {
-        backgroundColor: "#103540",
+        backgroundColor: "#ffffff",
     },
     header: {
         height: 56,
         width: "100%",
-        backgroundColor: "#154354",
+        backgroundColor: "#ffffff",
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
         paddingHorizontal: 16,
     },
     title: {
-        fontSize: 24,
-        color: "#fff",
+        fontSize: 20,
+        color: "#000000",
         fontWeight: "600",
+    },
+    notificationButton: {
+        width: 32,
+        height: 32,
+        borderRadius: 16,
+        backgroundColor: "#5b66d9",
+        justifyContent: "center",
+        alignItems: "center",
     },
 });
 

@@ -1,22 +1,38 @@
 import { Tabs } from 'expo-router';
-import { FontAwesome6, Fontisto } from "@expo/vector-icons";
+import { FontAwesome6, MaterialIcons, MaterialCommunityIcons} from "@expo/vector-icons";
 import CustomHeader from "@/src/components/customHeader";
+
+
+
 
 export default function TabLayout() {
     return (
         <Tabs
             screenOptions={{
-                tabBarActiveTintColor: '#154354',
-                header: () => <CustomHeader />,
+                tabBarActiveTintColor: '#5b66d9',
+                header: ({ route, options }) => (
+                    <CustomHeader
+                        routeName={route.name}
+                        title={options.title || route.name}
+                    />
+                ),
             }}
         >
             <Tabs.Screen
                 name="index"
                 options={{
-                    title: 'Home',
+                    title: 'Search',
                     tabBarIcon: ({ color }) => (
-                        <Fontisto size={20} name="compass" color={color} />
+                        <MaterialIcons name="location-searching" size={24} color={color} />
                     ),
+                }}
+            />
+            <Tabs.Screen
+                name="ticket"
+                options={{
+                    title: 'Ticket',
+                    tabBarIcon: ({ color }) => (
+                        <MaterialCommunityIcons name="ticket-confirmation-outline" size={24} color={color} />                    ),
                 }}
             />
             <Tabs.Screen
@@ -24,7 +40,7 @@ export default function TabLayout() {
                 options={{
                     title: 'Profile',
                     tabBarIcon: ({ color }) => (
-                        <FontAwesome6 size={20} name="circle-user" color={color} />
+                        <FontAwesome6 name="user" size={24} color={color} />
                     ),
                 }}
             />

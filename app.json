@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "expo-template",
-    "slug": "expo-template",
+    "name": "ticket-wise",
+    "slug": "ticket-wise",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "expotemplate",
+    "scheme": "ticket-wise",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {

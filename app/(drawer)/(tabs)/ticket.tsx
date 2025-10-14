@@ -1,10 +1,10 @@
 import {View,Text} from "react-native";
 import '@/global.css'
-const IndexTab = () => {
+const TicketTab = () => {
     return (
         <View className="h-screen flex items-center justify-center">
-            <Text className='text-3xl'>Welcome to Home</Text>
+            <Text className='text-3xl'>Welcome to Ticket Counter</Text>
         </View>
     )
 }
-export default IndexTab
+export default TicketTab
