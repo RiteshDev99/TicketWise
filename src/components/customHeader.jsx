@@ -40,12 +40,12 @@ const CustomHeader = ({ routeName, title }) => {
 
 const styles = StyleSheet.create({
     safeArea: {
-        backgroundColor: "#ffffff",
+        backgroundColor: "#f7f7f7",
     },
     header: {
         height: 56,
         width: "100%",
-        backgroundColor: "#ffffff",
+        backgroundColor: "#f7f7f7",
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",

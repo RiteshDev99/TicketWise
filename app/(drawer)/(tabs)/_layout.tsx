@@ -1,11 +1,11 @@
 import { Tabs } from 'expo-router';
-import { FontAwesome6, MaterialIcons, MaterialCommunityIcons} from "@expo/vector-icons";
+import { FontAwesome6, MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import CustomHeader from "@/src/components/customHeader";
-
-
-
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function TabLayout() {
+    const insets = useSafeAreaInsets();
+
     return (
         <Tabs
             screenOptions={{
@@ -16,6 +16,10 @@ export default function TabLayout() {
                         title={options.title || route.name}
                     />
                 ),
+                tabBarStyle: {
+                    paddingBottom: insets.bottom,
+                    height: 60 + insets.bottom,
+                },
             }}
         >
             <Tabs.Screen
@@ -32,7 +36,12 @@ export default function TabLayout() {
                 options={{
                     title: 'Ticket',
                     tabBarIcon: ({ color }) => (
-                        <MaterialCommunityIcons name="ticket-confirmation-outline" size={24} color={color} />                    ),
+                        <MaterialCommunityIcons
+                            name="ticket-confirmation-outline"
+                            size={24}
+                            color={color}
+                        />
+                    ),
                 }}
             />
             <Tabs.Screen
