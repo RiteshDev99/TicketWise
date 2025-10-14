@@ -9,7 +9,6 @@ import { router } from "expo-router";
 import { View, Text, StyleSheet, } from "react-native";
 import { Image } from "expo-image";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { LinearGradient } from "expo-linear-gradient";
 import { useState } from "react";
 
 const CustomDrawerContent = (props: DrawerContentComponentProps) => {
@@ -33,25 +32,7 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
                     contentFit="cover"
                     transition={300}
                 />
-                <View style={styles.overlay} />
-
-                <View style={styles.headerContent}>
-                    <View style={styles.profileWrapper}>
-                        <LinearGradient
-                            colors={["#5b66d9", "#5b66d9"]}
-                            start={{ x: 0, y: 0 }}
-                            end={{ x: 1, y: 1 }}
-                            style={styles.profileGradient}
-                        >
-                            <Feather name="user" size={40} color="#fff" />
-                        </LinearGradient>
-                    </View>
-                    <Text style={styles.headerText}>Ritesh Chaudhary</Text>
-                    {/*<View style={styles.row}>*/}
-                    {/*    <FontAwesome size={18} name="location-arrow" color={"#fff"} />*/}
-                    {/*    <Text style={styles.headerText}>Berihwa, Uttar Pradesh</Text>*/}
-                    {/*</View>*/}
-                </View>
+                {/*<View style={styles.overlay} />*/}
             </View>
             <View style={styles.drawerItemsContainer}>
                 <DrawerItem
