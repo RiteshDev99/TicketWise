@@ -1,7 +1,9 @@
-import {TouchableOpacity, View, Text, TextInput} from "react-native";
+import {TouchableOpacity, View, Text, TextInput, Button} from "react-native";
 import '@/global.css'
 import {FontAwesome6, MaterialCommunityIcons, MaterialIcons} from "@expo/vector-icons";
 import ServiceCard, {serviceProps} from "@/src/components/ui/serviceCard";
+import { getSearchSuggestions } from "@/src/api";
+import { useState } from "react";
 
 
 
@@ -25,6 +27,8 @@ const IndexTab = () => {
         },
 
     ]
+  
+
     return (
         <View className='flex-1 items-center'>
 
@@ -62,6 +66,7 @@ const IndexTab = () => {
                     <ServiceCard {...item} />
                 </View>
             ))}
+
 
         </View>
 
