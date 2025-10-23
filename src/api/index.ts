@@ -1,5 +1,5 @@
-import { getSearchSuggestions } from "./searchSuggestionApi";
+import { getStationSuggestions} from "./station-search-suggestionApi";
 
 export {
-    getSearchSuggestions,
+    getStationSuggestions,
 }

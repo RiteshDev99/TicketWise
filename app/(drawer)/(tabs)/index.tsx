@@ -2,14 +2,18 @@ import {TouchableOpacity, View, Text, TextInput, Button} from "react-native";
 import '@/global.css'
 import {FontAwesome6, MaterialCommunityIcons, MaterialIcons} from "@expo/vector-icons";
 import ServiceCard, {serviceProps} from "@/src/components/ui/serviceCard";
-import { getSearchSuggestions } from "@/src/api";
-import { useState } from "react";
-import RecentSearchCard from "@/src/components/ui/recentSearchCard";
+import { useState, useEffect } from "react";
+import {Station} from "../../../src/api/station-search-suggestionApi";
+import {getStationSuggestions} from '@/src/api/index'
 
 
 
 
 const IndexTab = () => {
+    
+    const [query, setQuery] = useState('');
+    const [loading, setLoading] = useState<boolean>(false);
+    const [stations, setStations] = useState<Station[]>([]);
 
     const serviceData:serviceProps[] = [
         {
@@ -30,6 +34,27 @@ const IndexTab = () => {
     ]
 
 
+    const handleSearch = async (text: string) => {
+        setQuery(text);
+        if (text.length < 2) return;
+
+        setLoading(true);
+        try {
+            const data = await getStationSuggestions(text);
+            setStations(data);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+
+    useEffect(() => {
+        handleSearch('del')
+    }, []);
+
+
     return (
           <View className='flex-1 items-center'>
             <View className="px-6 py-8  h-[31vh] w-[90vw] bg-[#ffffff] mt-6 rounded-3xl shadow-lg">
@@ -40,6 +65,8 @@ const IndexTab = () => {
                             className="flex-1 ml-3 text-lg text-gray-800"
                             placeholder="From Station"
                             placeholderTextColor="#999"
+                            value={query}
+                            onChangeText={handleSearch}
                         />
                     </View>
                 </View>
