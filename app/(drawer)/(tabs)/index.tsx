@@ -4,6 +4,7 @@ import {FontAwesome6, MaterialCommunityIcons, MaterialIcons} from "@expo/vector-
 import ServiceCard, {serviceProps} from "@/src/components/ui/serviceCard";
 import { getSearchSuggestions } from "@/src/api";
 import { useState } from "react";
+import RecentSearchCard from "@/src/components/ui/recentSearchCard";
 
 
 
@@ -27,11 +28,10 @@ const IndexTab = () => {
         },
 
     ]
-  
+
 
     return (
-        <View className='flex-1 items-center'>
-
+          <View className='flex-1 items-center'>
             <View className="px-6 py-8  h-[31vh] w-[90vw] bg-[#ffffff] mt-6 rounded-3xl shadow-lg">
                 <View className="mb-4">
                     <View className="flex-row items-center bg-white rounded-2xl px-4 py-2 border border-gray-200">
@@ -67,8 +67,9 @@ const IndexTab = () => {
                 </View>
             ))}
 
-
         </View>
+
+
 
     )
 }
