@@ -5,16 +5,21 @@ import { router, Stack, useLocalSearchParams } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { Station } from "@/src/api/station-search-suggestionApi";
 import { getStationSuggestions } from "@/src/api/station-search-suggestionApi";
-
+import { useAppDispatch   } from '@/src/store/hooks'
+import { setFromLocation, setToLocation } from "@/src/store/features/locationFetchSlice";
 export default function SearchScreen() {
     const [query, setQuery] = useState("");
     const [stations, setStations] = useState<Station[]>([]);
     const [loading, setLoading] = useState(false);
     const [searched, setSearched] = useState(false);
+    const {PlaceHolderName} = useLocalSearchParams<{ PlaceHolderName: string }>();
+    const {fieldType} = useLocalSearchParams<{ fieldType: "from" | "to" }>();
 
+    
+    const dispatch = useAppDispatch();
     useEffect(() => {
         const delayDebounce = setTimeout(async () => {
-            if (query && query.trim().length > 2) { 
+            if (query && query.trim().length > 2) {
                 setLoading(true);
                 setSearched(true);
                 try {
@@ -35,6 +40,36 @@ export default function SearchScreen() {
 
         return () => clearTimeout(delayDebounce);
     }, [query]);
+
+
+
+    const handleResultPress = (result: Station, fieldType: "from" | "to") => {
+        if (fieldType === "from") {
+            dispatch(setFromLocation({ name: result.stationName, code: result.stationCode }));
+        } else if (fieldType === "to") {
+            dispatch(setToLocation({ name: result.stationName, code: result.stationCode }));
+        }
+        router.push({
+            pathname: "/(drawer)/(tabs)",
+        });
+    };
+    
+
+
+
+
+    const renderSearchResult = ({item}: { item: Station }) => (
+        <TouchableOpacity className="p-4 border-b border-gray-200 flex-row items-center gap-4"
+                          onPress={() => handleResultPress(item, fieldType)}
+
+
+        >
+            <View className="w-16 h-8 bg-[#5b66d9] rounded-lg justify-center items-center">
+                <Text className="text-[13px] text-white  ">{item.stationCode}</Text>
+            </View>
+            <Text className="text-[15px] text-gray-500">{item.stationName}</Text>
+        </TouchableOpacity>
+    );
     
     return (
         <>
@@ -57,7 +92,7 @@ export default function SearchScreen() {
                         style={{ marginRight: 12 }}
                     />
                     <TextInput
-                        placeholder='search for station'
+                        placeholder={PlaceHolderName}
                         className="flex-1 text-lg text-gray-800 py-2 px-2"
                         placeholderTextColor="#9CA3AF"
                         autoFocus
@@ -71,7 +106,7 @@ export default function SearchScreen() {
 
                 {loading && (
                     <View className="mt-6 items-center">
-                        <ActivityIndicator size="large" />
+                        <ActivityIndicator size="small" />
                     </View>
                 )}
 
@@ -80,17 +115,11 @@ export default function SearchScreen() {
                         <Text className="text-gray-500 text-lg">No stations found</Text>
                     </View>
                 )}
+                
                 <FlatList
                     data={stations}
                     keyExtractor={(item) => `${item.stationCode}-${item.stationName}`}
-                    renderItem={({ item }) => (
-                        <TouchableOpacity className="p-4 border-b border-gray-200 flex-row items-center gap-4">
-                            <View className="w-16 h-8 bg-[#5b66d9] rounded-lg justify-center items-center">
-                                <Text className="text-[13px] text-white  ">{item.stationCode}</Text>
-                            </View>
-                            <Text className="text-[15px] text-gray-500">{item.stationName}</Text>
-                        </TouchableOpacity>
-                    )}
+                    renderItem={renderSearchResult}
                 />
             </SafeAreaView>
         </>

@@ -1,5 +1,5 @@
 import { Tabs } from 'expo-router';
-import { FontAwesome6, MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { FontAwesome6,  Feather  , MaterialCommunityIcons } from "@expo/vector-icons";
 import CustomHeader from "@/src/components/customHeader";
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -27,7 +27,7 @@ export default function TabLayout() {
                 options={{
                     title: 'Search',
                     tabBarIcon: ({ color }) => (
-                        <MaterialIcons name="location-searching" size={24} color={color} />
+                        <Feather name="search" size={24} color={color} />
                     ),
                 }}
             />

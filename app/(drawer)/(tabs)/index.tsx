@@ -3,10 +3,11 @@ import '@/global.css'
 import {FontAwesome6, MaterialCommunityIcons, MaterialIcons} from "@expo/vector-icons";
 import ServiceCard, {serviceProps} from "@/src/components/ui/serviceCard";
 import {router} from "expo-router";
-import { getStationSuggestions } from "@/src/api/station-search-suggestionApi";
+import {useAppSelector,} from '@/src/store/hooks'
+
 
 const IndexTab = () => {
-
+    
     const serviceData: serviceProps[] = [
         {
             id: '1',
@@ -23,8 +24,20 @@ const IndexTab = () => {
             />
         },
     ]
-
     
+
+    const {fetchFromLocation, fetchToLocation} = useAppSelector(
+        (state: any) => state.locationFetch
+    );
+    
+
+    const {fetchFromLocationCode, fetchToLocationCode} = useAppSelector(
+        (state: any) => state.locationFetch
+    );
+    
+
+
+
 
     return (
         <View className='flex-1 items-center'>
@@ -45,6 +58,7 @@ const IndexTab = () => {
                         <TextInput
                             className="flex-1 ml-3 text-lg text-gray-800"
                             placeholder="From Station"
+                            value={fetchFromLocation}
                             editable={false}
                             placeholderTextColor="#999"
                         />
@@ -67,17 +81,35 @@ const IndexTab = () => {
                         <TextInput
                             className="flex-1 ml-3 text-lg text-gray-800"
                             placeholder="To Station"
+                            value={fetchToLocation}
                             placeholderTextColor="#999"
                             editable={false}
                         />
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity className="bg-[#5b66d9] rounded-2xl py-4 flex-row justify-center items-center gap-x-1 shadow-lg">
+                <TouchableOpacity
+                    className={`rounded-2xl py-4 flex-row justify-center items-center gap-x-1 shadow-lg ${
+                        fetchFromLocation && fetchToLocation ? "bg-[#5b66d9]" : "bg-gray-400"
+                    }`}
+                    onPress={() =>
+                        router.push({
+                            pathname: '/(screens)/trainList',
+                            params: {
+                                fromName: fetchFromLocation,
+                                toName: fetchToLocation,
+                                fromCode: fetchFromLocationCode,
+                                toCode: fetchToLocationCode,
+                            },
+                        })
+                    }
+                    disabled={!fetchFromLocation || !fetchToLocation} // fixed logic
+                >
                     <MaterialIcons name="train" size={22} color="#fff" />
                     <Text className="text-white text-lg font-semibold text-center">
                         Find Trains
                     </Text>
                 </TouchableOpacity>
+
             </View>
 
             {serviceData.map((item) => (
