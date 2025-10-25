@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, ScrollView, StatusBar } from 'react-nativ
 import { Ionicons } from '@expo/vector-icons';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { TrainLists } from "@/src/api/train-list";
+import TrainListCard from "@/src/components/ui/trainListCard";
 
 const TrainList = () => {
     const { fromCode, toCode, fromName, toName  } = useLocalSearchParams<{ 
@@ -57,7 +58,7 @@ const TrainList = () => {
                 }}
             />
 
-            <View className="flex-1 bg-gray-50">
+            <View className="flex-1">
                 <View className="bg-[#5b66d9] pb-6 pt-3">
                     <View className="px-4">
                         <View className="flex-row items-center justify-between">
@@ -78,8 +79,13 @@ const TrainList = () => {
                     </View>
                 </View>
 
-                {/* Train List Content */}
-            
+                <ScrollView>
+                    <TrainListCard />
+                    <TrainListCard />
+                    <TrainListCard />
+                    <TrainListCard />
+                </ScrollView>
+                
             </View>
         </>
     );

@@ -1,10 +1,11 @@
-import {TouchableOpacity, View, Text, TextInput, FlatList, ActivityIndicator} from "react-native";
+import {TouchableOpacity, View, Text, TextInput, FlatList, ActivityIndicator,ScrollView } from "react-native";
 import '@/global.css'
 import {FontAwesome6, MaterialCommunityIcons, MaterialIcons} from "@expo/vector-icons";
 import ServiceCard, {serviceProps} from "@/src/components/ui/serviceCard";
 import {router} from "expo-router";
 import {useAppSelector,} from '@/src/store/hooks'
 import {getStationSuggestions} from "../../../src/api";
+import TrainListCard from "@/src/components/ui/trainListCard";
 
 
 
@@ -27,7 +28,7 @@ const IndexTab = () => {
         },
     ]
 
-    
+
 
     const {fetchFromLocation, fetchToLocation} = useAppSelector(
         (state: any) => state.locationFetch
@@ -40,9 +41,9 @@ const IndexTab = () => {
 
 
     
-
     return (
-        <View className='flex-1 items-center'>
+        <ScrollView className='flex-1 bg-[#f5f5f5]'>
+        <View className='flex-1 items-center pb-20'>
             <View className="px-6 py-8 w-[90vw] bg-[#ffffff] mt-6 rounded-3xl shadow-lg">
                 <View className="mb-4 relative z-20">
                     <TouchableOpacity className="flex-row items-center bg-white rounded-2xl px-4 py-2 border border-gray-200"
@@ -104,7 +105,7 @@ const IndexTab = () => {
                             },
                         })
                     }
-                    disabled={!fetchFromLocation || !fetchToLocation} // fixed logic
+                    disabled={!fetchFromLocation || !fetchToLocation} 
                 >
                     <MaterialIcons name="train" size={22} color="#fff" />
                     <Text className="text-white text-lg font-semibold text-center">
@@ -119,7 +120,10 @@ const IndexTab = () => {
                     <ServiceCard {...item} />
                 </View>
             ))}
+
+        
         </View>
+        </ScrollView>
     )
 }
 
