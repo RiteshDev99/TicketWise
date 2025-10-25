@@ -5,26 +5,36 @@ export interface Station {
     stationCode: string;
 }
 
+export interface GetStationSuggestionsResponse {
+    stationList: Station[];
+    popularStationList: Station[];
+}
+
 const BASE_URL = "https://irctc-api.cemya.workers.dev";
 
-export const getStationSuggestions = async (query: string) => {
-    if (!query.trim()) return [];
-
+export const getStationSuggestions = async (query: string): Promise<GetStationSuggestionsResponse> => {
     try {
         const response = await axios.get(`${BASE_URL}/station/suggestions`, {
             params: { q: query },
             headers: { Accept: "application/json" },
         });
-        const stationsList = response.data?.response || [];
-        
-        const stations: Station[] = stationsList.map((item: any) => ({
-            stationName: item.stationName,
-            stationCode: item.stationCode,
+
+        const data = response.data?.response?.data || {};
+
+        const stationList: Station[] = (data.stationList || []).map((s: Station) => ({
+            stationName: s.stationName,
+            stationCode: s.stationCode,
         }));
 
-        return stations;
+        const popularStationList: Station[] = (data.popularStationList || []).map((s: Station) => ({
+            stationName: s.stationName,
+            stationCode: s.stationCode,
+        }));
+
+        return { stationList, popularStationList };
+
     } catch (error) {
         console.error("Error fetching station suggestions:", error);
-        return [];
+        return { stationList: [], popularStationList: [] };
     }
 };

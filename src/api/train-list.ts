@@ -7,7 +7,7 @@ export interface TrainListPrams {
 
 const BASE_URL = "https://irctc-api.cemya.workers.dev";
 
-export const TrainList = async ({fromStn, toStn}:TrainListPrams) => {
+export const TrainLists = async ({fromStn, toStn}:TrainListPrams) => {
 
     try {
         const response = await axios.get(`${BASE_URL}/station/train-list`, {
@@ -19,7 +19,6 @@ export const TrainList = async ({fromStn, toStn}:TrainListPrams) => {
         });
         const TrainList = response.data;
         console.log('TrainList api response',TrainList);
-
         return TrainList;
     } catch (error) {
         console.error("Error fetching station suggestions:", error);

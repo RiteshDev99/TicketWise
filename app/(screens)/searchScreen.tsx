@@ -17,6 +17,23 @@ export default function SearchScreen() {
 
     
     const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        const fetchData = async () => {
+            setLoading(true);
+            try {
+                const result = await getStationSuggestions(''); 
+                setStations(result.popularStationList); 
+            } catch (error) {
+                console.error("API error:", error);
+            } finally {
+                setLoading(false)
+            }
+        };
+
+        fetchData();
+    }, []);
+    
     useEffect(() => {
         const delayDebounce = setTimeout(async () => {
             if (query && query.trim().length > 2) {
@@ -24,8 +41,7 @@ export default function SearchScreen() {
                 setSearched(true);
                 try {
                     const results = await getStationSuggestions(query);
-                    setStations(results);
-                    console.log("Fetched stations:", results);
+                    setStations(results.stationList);
                 } catch (error) {
                     console.error(error);
                     setStations([]);
@@ -41,6 +57,7 @@ export default function SearchScreen() {
         return () => clearTimeout(delayDebounce);
     }, [query]);
 
+    
 
 
     const handleResultPress = (result: Station, fieldType: "from" | "to") => {
@@ -54,10 +71,6 @@ export default function SearchScreen() {
         });
     };
     
-
-
-
-
     const renderSearchResult = ({item}: { item: Station }) => (
         <TouchableOpacity className="p-4 border-b border-gray-200 flex-row items-center gap-4"
                           onPress={() => handleResultPress(item, fieldType)}

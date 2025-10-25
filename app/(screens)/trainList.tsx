@@ -1,13 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import { View, Text, TouchableOpacity, ScrollView, StatusBar } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
+import { TrainLists } from "@/src/api/train-list";
 
 const TrainList = () => {
     const { fromCode, toCode, fromName, toName  } = useLocalSearchParams<{ 
         fromCode: string; toCode: string; fromName:string; toName:string
     
     }>();
+
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+
+                const results = await TrainLists({ fromStn: fromCode, toStn: toCode });
+                console.log("Fetched stations:", results);
+
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+     fetchData()
+    }, [fromCode, toCode]); 
+
+
+
 
 
     return (

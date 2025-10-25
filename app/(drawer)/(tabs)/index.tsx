@@ -4,6 +4,8 @@ import {FontAwesome6, MaterialCommunityIcons, MaterialIcons} from "@expo/vector-
 import ServiceCard, {serviceProps} from "@/src/components/ui/serviceCard";
 import {router} from "expo-router";
 import {useAppSelector,} from '@/src/store/hooks'
+import {getStationSuggestions} from "../../../src/api";
+
 
 
 const IndexTab = () => {
@@ -24,6 +26,7 @@ const IndexTab = () => {
             />
         },
     ]
+
     
 
     const {fetchFromLocation, fetchToLocation} = useAppSelector(
@@ -34,10 +37,9 @@ const IndexTab = () => {
     const {fetchFromLocationCode, fetchToLocationCode} = useAppSelector(
         (state: any) => state.locationFetch
     );
+
+
     
-
-
-
 
     return (
         <View className='flex-1 items-center'>

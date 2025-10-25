@@ -1,7 +1,7 @@
 import { getStationSuggestions} from "./station-search-suggestionApi";
-import { TrainList } from "./train-List";
+import { TrainLists } from "./train-list";
 
 export {
     getStationSuggestions,
-    TrainList
+    TrainLists
 }
