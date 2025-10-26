@@ -9,7 +9,7 @@ import { useAppDispatch   } from '@/src/store/hooks'
 import { setFromLocation, setToLocation } from "@/src/store/features/locationFetchSlice";
 export default function SearchScreen() {
     const [query, setQuery] = useState("");
-    const [stations, setStations] = useState<Station[]>([]);
+    const [stations, setStations] = useState<Station[] | undefined>([]);
     const [loading, setLoading] = useState(false);
     const [searched, setSearched] = useState(false);
     const {PlaceHolderName} = useLocalSearchParams<{ PlaceHolderName: string }>();
@@ -18,21 +18,21 @@ export default function SearchScreen() {
     
     const dispatch = useAppDispatch();
 
-    useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true);
-            try {
-                const result = await getStationSuggestions(''); 
-                setStations(result.popularStationList); 
-            } catch (error) {
-                console.error("API error:", error);
-            } finally {
-                setLoading(false)
-            }
-        };
-
-        fetchData();
-    }, []);
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         setLoading(true);
+    //         try {
+    //             const result = await getStationSuggestions(''); 
+    //             setStations(result.popularStationList); 
+    //         } catch (error) {
+    //             console.error("API error:", error);
+    //         } finally {
+    //             setLoading(false)
+    //         }
+    //     };
+    //
+    //     fetchData();
+    // }, []);
     
     useEffect(() => {
         const delayDebounce = setTimeout(async () => {
@@ -41,7 +41,7 @@ export default function SearchScreen() {
                 setSearched(true);
                 try {
                     const results = await getStationSuggestions(query);
-                    setStations(results.stationList);
+                    setStations(results)
                 } catch (error) {
                     console.error(error);
                     setStations([]);
@@ -123,7 +123,7 @@ export default function SearchScreen() {
                     </View>
                 )}
 
-                {!loading && searched && stations.length === 0 && (
+                {!loading && searched && stations?.length === 0 && (
                     <View className="mt-10 items-center">
                         <Text className="text-gray-500 text-lg">No stations found</Text>
                     </View>

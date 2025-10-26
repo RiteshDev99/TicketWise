@@ -5,36 +5,25 @@ export interface Station {
     stationCode: string;
 }
 
-export interface GetStationSuggestionsResponse {
-    stationList: Station[];
-    popularStationList: Station[];
-}
 
-const BASE_URL = "https://irctc-api.cemya.workers.dev";
-
-export const getStationSuggestions = async (query: string): Promise<GetStationSuggestionsResponse> => {
+export const getStationSuggestions = async (query: string): Promise<Station[] | undefined> => {
     try {
-        const response = await axios.get(`${BASE_URL}/station/suggestions`, {
-            params: { q: query },
-            headers: { Accept: "application/json" },
-        });
-
-        const data = response.data?.response?.data || {};
-
-        const stationList: Station[] = (data.stationList || []).map((s: Station) => ({
-            stationName: s.stationName,
-            stationCode: s.stationCode,
+        const url = `https://api.disha.corover.ai/dishaAPI/bot/searchStation/${query}`;
+        
+        const response = await axios.get(url);
+        
+        const data = response.data;
+        
+        const stationList: Station[] = data.map((s:any) => ({
+            stationName: s.name,
+            stationCode: s.code,
         }));
 
-        const popularStationList: Station[] = (data.popularStationList || []).map((s: Station) => ({
-            stationName: s.stationName,
-            stationCode: s.stationCode,
-        }));
-
-        return { stationList, popularStationList };
+        console.log("Station List:", stationList);
+        
+        return stationList
 
     } catch (error) {
         console.error("Error fetching station suggestions:", error);
-        return { stationList: [], popularStationList: [] };
     }
 };
