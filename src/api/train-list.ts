@@ -1,32 +1,50 @@
 import axios from "axios";
 
 export interface TrainListPrams {
-    fromStn: string;
-    toStn: string;
+    from: string;
+    to: string;
+    date:string;
+}
+
+export interface Trains {
+    avlClassesSorted: string[];                
+    availabilityCache?: Record<string, any>;   
+    availabilityCacheTatkal?: Record<string, any>;
+    arrivalTime: string;                      
+    trainName: string;                        
+    fromStnCode: string;                      
+    toStnCode: string;                        
+    fromStnName: string;                       
+    toStnName: string;                         
+    trainNumber: string;                      
+    trainType: string;                       
+    duration: string;
+    departureTime: string;                     
+    distance: number;                          
+    fromCityName: string;
+    toCityName: string;
 }
 
 
 export interface TrainListApiResponse {
-    quotaList: string[];
-    trainList: string[];
+    trainList: Trains[];
 }
 
-const BASE_URL = "https://irctc-api.cemya.workers.dev";
+const BASE_URL = "https://irctc-api.maya-cloud.workers.dev";
 
-
-export const TrainLists = async ({ fromStn, toStn }: TrainListPrams) => {
+export const TrainLists = async ({ from, to, date }: TrainListPrams): Promise<TrainListApiResponse | undefined> => {
     try {
-        const response = await axios.get(`${BASE_URL}/station/train-list`, {
-            params: { fromStn, toStn },
+        const response = await axios.get(`${BASE_URL}/train/search`, {
+            params: { from, to, date },
             headers: { Accept: "application/json" },
         });
         
         const data: TrainListApiResponse = response.data?.response?.data;
         console.log("Train List:", data.trainList)
-
         return data; 
     } catch (error) {
         console.error("Error fetching train list:", error);
-        return { quotaList: [], trainList: [] };
     }
 };
+
+

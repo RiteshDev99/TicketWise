@@ -120,8 +120,6 @@ const IndexTab = () => {
                     <ServiceCard {...item} />
                 </View>
             ))}
-
-        
         </View>
         </ScrollView>
     )
