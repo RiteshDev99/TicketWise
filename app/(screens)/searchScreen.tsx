@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { StatusBar, TextInput, View, FlatList, TouchableOpacity, Text, ActivityIndicator } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router, Stack, useLocalSearchParams } from "expo-router";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, Entypo } from "@expo/vector-icons";
 import { Station } from "@/src/api/station-search-suggestionApi";
 import { getStationSuggestions } from "@/src/api/station-search-suggestionApi";
 import { useAppDispatch   } from '@/src/store/hooks'
@@ -18,25 +18,25 @@ export default function SearchScreen() {
     
     const dispatch = useAppDispatch();
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         setLoading(true);
-    //         try {
-    //             const result = await getStationSuggestions(''); 
-    //             setStations(result.popularStationList); 
-    //         } catch (error) {
-    //             console.error("API error:", error);
-    //         } finally {
-    //             setLoading(false)
-    //         }
-    //     };
-    //
-    //     fetchData();
-    // }, []);
+    useEffect(() => {
+        const fetchData = async () => {
+            setLoading(true);
+            try {
+                const result = await getStationSuggestions(''); 
+                setStations(result); 
+            } catch (error) {
+                console.error("API error:", error);
+            } finally {
+                setLoading(false)
+            }
+        };
+
+        fetchData();
+    }, []);
     
     useEffect(() => {
         const delayDebounce = setTimeout(async () => {
-            if (query && query.trim().length > 2) {
+            if (query && query.trim().length > 0) {
                 setLoading(true);
                 setSearched(true);
                 try {
@@ -115,13 +115,18 @@ export default function SearchScreen() {
                         value={query}
                         onChangeText={setQuery}
                     />
-                </View>
+                    {
+                        loading ?
+                            <ActivityIndicator size="small" color="black" />
+                            : 
+                            <Entypo 
+                                name="cross" size={24} color="black"
+                                onPress={() => setQuery('')}
 
-                {loading && (
-                    <View className="mt-6 items-center">
-                        <ActivityIndicator size="small" />
-                    </View>
-                )}
+                            />
+                    }
+
+                </View>
 
                 {!loading && searched && stations?.length === 0 && (
                     <View className="mt-10 items-center">
