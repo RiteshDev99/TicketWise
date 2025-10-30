@@ -38,12 +38,11 @@ export const TrainLists = async ({ from, to, date }: TrainListPrams): Promise<Tr
             params: { from, to, date },
             headers: { Accept: "application/json" },
         });
-        
         const data: TrainListApiResponse = response.data?.response?.data;
-        console.log("Train List:", data.trainList)
         return data; 
     } catch (error) {
         console.error("Error fetching train list:", error);
+
     }
 };
 

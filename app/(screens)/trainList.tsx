@@ -9,12 +9,7 @@ const TrainList = () => {
         fromCode: string; toCode: string; fromName:string; toName:string
     
     }>();
-
-    useEffect(() => {
-        console.log('From Code:', fromCode, 'To Code:', toCode);
-    }, []);
-
-
+    
     return (
         <>
             <StatusBar barStyle="light-content" backgroundColor="#5b66d9" />
@@ -63,7 +58,7 @@ const TrainList = () => {
                 </View>
 
                 <ScrollView>
-                    <TrainListCard fromCode={'JNU'} toCode={'AY'}  date={'05-11-2025'}/>
+                    <TrainListCard fromCode={fromCode} toCode={toCode}  date={'11-11-2025'}/>
                 </ScrollView>
                 
             </View>

@@ -4,8 +4,6 @@ import {FontAwesome6, MaterialCommunityIcons, MaterialIcons} from "@expo/vector-
 import ServiceCard, {serviceProps} from "@/src/components/ui/serviceCard";
 import {router} from "expo-router";
 import {useAppSelector,} from '@/src/store/hooks'
-import {getStationSuggestions} from "../../../src/api";
-import TrainListCard from "@/src/components/ui/trainListCard";
 
 
 
@@ -27,8 +25,7 @@ const IndexTab = () => {
             />
         },
     ]
-
-
+    
 
     const {fetchFromLocation, fetchToLocation} = useAppSelector(
         (state: any) => state.locationFetch
@@ -120,6 +117,10 @@ const IndexTab = () => {
                     <ServiceCard {...item} />
                 </View>
             ))}
+
+
+           
+
         </View>
         </ScrollView>
     )
