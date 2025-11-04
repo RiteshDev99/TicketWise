@@ -43,7 +43,7 @@ const IndexTab = () => {
         <View className='flex-1 items-center pb-20'>
             <View className="px-6 py-8 w-[90vw] bg-[#ffffff] mt-6 rounded-3xl shadow-lg">
                 <View className="mb-4 relative z-20">
-                    <TouchableOpacity className="flex-row items-center bg-white rounded-2xl px-4 py-2 border border-gray-200"
+                    <TouchableOpacity className="flex-row items-center bg-white rounded-2xl px-4 py-2 border-b border-gray-200"
                                       activeOpacity={1.6}
 
                                       onPress={() => router.push({
@@ -65,8 +65,8 @@ const IndexTab = () => {
                     </TouchableOpacity>
                 </View>
                 
-                <View className="mb-8 relative z-10">
-                    <TouchableOpacity className="flex-row items-center bg-white rounded-2xl px-4 py-2 border border-gray-200"
+                <View className="mb-4 relative z-10">
+                    <TouchableOpacity className="flex-row items-center bg-white rounded-2xl px-4 py-2 border-b border-gray-200"
                                       activeOpacity={1.6}
 
                                       onPress={() => router.push({
@@ -86,6 +86,24 @@ const IndexTab = () => {
                             editable={false}
                         />
                     </TouchableOpacity>
+                </View>
+
+                <View className="mb-8 relative z-20">
+                    <View className="flex-row items-center justify-between bg-white rounded-2xl px-4 py-2 border-b border-gray-200">
+                        <MaterialIcons name="calendar-month" size={24} color="#999" />
+
+                        <View className="flex-1 flex-row  text-lg text-gray-800 p-2 gap-x-3 pl-3">
+                            {['Today', 'Tomorrow', 'Day After'].map((label, index) => (
+                                <TouchableOpacity
+                                    key={index}
+                                    activeOpacity={0.6}
+                                    className="py-1 px-3 border border-gray-200 rounded-xl"
+                                >
+                                    <Text className="text-sm text-gray-700">{label}</Text>
+                                </TouchableOpacity>
+                            ))}
+                        </View>
+                    </View>
                 </View>
                 <TouchableOpacity
                     className={`rounded-2xl py-4 flex-row justify-center items-center gap-x-1 shadow-lg ${
