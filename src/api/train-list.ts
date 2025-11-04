@@ -40,9 +40,9 @@ export const TrainLists = async ({ from, to, date }: TrainListPrams): Promise<Tr
         });
         const data: TrainListApiResponse = response.data?.response?.data;
         return data; 
-    } catch (error) {
+    } catch (error: any) {
         console.error("Error fetching train list:", error);
-
+        return error.response?.error;
     }
 };
 

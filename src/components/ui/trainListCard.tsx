@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import SeatClassCard from './seatClassCard';
-import { TrainLists } from '../../api';
-import { Trains } from '../../api/train-list';
+import {TrainLists, Trains } from '../../api/train-list';
 import {MaterialIcons} from "@expo/vector-icons";
 import { ActivityIndicator } from "react-native";
 
@@ -12,15 +11,12 @@ const TrainListCard = ({fromCode, toCode, date}:any) => {
     const [error, setError] = useState<string | null>(null);
     
     useEffect(() => {
-        console.log('From Code:', fromCode, 'To Code:', toCode, date);
-    }, []);
-
-    useEffect(() => {
         if (!fromCode || !toCode) return;
         const fetchTrainData = async (): Promise<void> => {
             setLoading(true)
             try {
                 const response = await TrainLists({ from: fromCode, to: toCode, date: date});
+                
                 const trainData: Trains[] =
                     response?.trainList?.map((train: any) => ({
                         avlClassesSorted: train.avlClassesSorted,
@@ -70,7 +66,7 @@ const TrainListCard = ({fromCode, toCode, date}:any) => {
                                     <Text className="text-lg font-bold text-gray-800 mr-2">
                                         {train.trainNumber}
                                     </Text>
-                                    <Text className="text-sm text-gray-700">{train.trainName}</Text>
+                                    <Text className="text-sm text-gray-700 font-semibold">{train.trainName}</Text>
                                     <MaterialIcons name="keyboard-arrow-right" size={20} color="#999" />
 
                                 </View>

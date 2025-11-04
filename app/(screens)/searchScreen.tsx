@@ -3,31 +3,31 @@ import { StatusBar, TextInput, View, FlatList, TouchableOpacity, Text, ActivityI
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import { Ionicons, Entypo } from "@expo/vector-icons";
-import { Station } from "@/src/api/station-search-suggestionApi";
-import { getStationSuggestions } from "@/src/api/station-search-suggestionApi";
+import { setStations, setLoading, setError } from '@/src/store/features/station-searchSlice';
 import { useAppDispatch   } from '@/src/store/hooks'
 import { setFromLocation, setToLocation } from "@/src/store/features/locationFetchSlice";
+import { useSelector } from "react-redux";
+import { RootState } from "@/src/store/store";
+import {getStationSuggestions, Station } from "@/src/api/station-searchApi";
 export default function SearchScreen() {
     const [query, setQuery] = useState("");
-    const [stations, setStations] = useState<Station[] | undefined>([]);
-    const [loading, setLoading] = useState(false);
     const [searched, setSearched] = useState(false);
     const {PlaceHolderName} = useLocalSearchParams<{ PlaceHolderName: string }>();
     const {fieldType} = useLocalSearchParams<{ fieldType: "from" | "to" }>();
 
     
     const dispatch = useAppDispatch();
-
+    const { stations, loading, error } = useSelector((state: RootState) => state.station);
+    
     useEffect(() => {
         const fetchData = async () => {
-            setLoading(true);
             try {
-                const result = await getStationSuggestions(''); 
-                setStations(result); 
+                const result = await getStationSuggestions('');
+                dispatch(setStations(result || []));
             } catch (error) {
                 console.error("API error:", error);
             } finally {
-                setLoading(false)
+                dispatch(setLoading(false));
             }
         };
 
@@ -37,19 +37,18 @@ export default function SearchScreen() {
     useEffect(() => {
         const delayDebounce = setTimeout(async () => {
             if (query && query.trim().length > 0) {
-                setLoading(true);
+                dispatch(setLoading(true));
                 setSearched(true);
                 try {
                     const results = await getStationSuggestions(query);
-                    setStations(results)
+                    dispatch(setStations(results || []));
                 } catch (error) {
                     console.error(error);
-                    setStations([]);
                 } finally {
-                    setLoading(false);
+                    dispatch(setLoading(false));
                 }
             } else {
-                setStations([]);
+                dispatch(setStations([]));
                 setSearched(false);
             }
         }, 400);
@@ -74,8 +73,6 @@ export default function SearchScreen() {
     const renderSearchResult = ({item}: { item: Station }) => (
         <TouchableOpacity className="p-4 border-b border-gray-200 flex-row items-center gap-4"
                           onPress={() => handleResultPress(item, fieldType)}
-
-
         >
             <View className="w-16 h-8 bg-[#5b66d9] rounded-lg justify-center items-center">
                 <Text className="text-[13px] text-white  ">{item.stationCode}</Text>
@@ -133,7 +130,6 @@ export default function SearchScreen() {
                         <Text className="text-gray-500 text-lg">No stations found</Text>
                     </View>
                 )}
-                
                 <FlatList
                     data={stations}
                     keyExtractor={(item) => `${item.stationCode}-${item.stationName}`}

@@ -58,7 +58,7 @@ const TrainList = () => {
                 </View>
 
                 <ScrollView>
-                    <TrainListCard fromCode={fromCode} toCode={toCode}  date={'11-11-2025'}/>
+                    <TrainListCard fromCode={fromCode} toCode={toCode}  date={'5-11-2025'}/>
                 </ScrollView>
                 
             </View>

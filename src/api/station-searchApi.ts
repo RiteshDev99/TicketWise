@@ -18,10 +18,10 @@ export const getStationSuggestions = async (query: string): Promise<Station[] | 
             stationName: s.name,
             stationCode: s.code,
         }));
-        console.log("Station List:", stationList);
         return stationList
 
     } catch (error) {
         console.error("Error fetching station suggestions:", error);
+        return [];
     }
 };
