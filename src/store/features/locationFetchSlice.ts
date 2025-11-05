@@ -5,6 +5,7 @@ const initialState = {
     fetchFromLocationCode: null,
     fetchToLocation: null,
     fetchToLocationCode: null,
+    dateSelect: null,
 };
 
 const locationFetchSlice = createSlice({
@@ -14,6 +15,9 @@ const locationFetchSlice = createSlice({
         setFromLocation: (state, action) => {
             state.fetchFromLocation = action.payload.name;
             state.fetchFromLocationCode = action.payload.code;
+        },
+        dateSelect: (state, action) => {
+            state.dateSelect = action.payload;
         },
         setToLocation: (state, action) => {
             state. fetchToLocation = action.payload.name;
@@ -26,6 +30,6 @@ const locationFetchSlice = createSlice({
     },
 });
 
-export const { setFromLocation, setToLocation, resetLocations } = locationFetchSlice.actions;
+export const { setFromLocation, setToLocation, resetLocations, dateSelect } = locationFetchSlice.actions;
 
 export default locationFetchSlice.reducer;

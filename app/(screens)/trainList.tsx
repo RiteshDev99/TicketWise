@@ -3,12 +3,16 @@ import { View, Text, TouchableOpacity, ScrollView, StatusBar } from 'react-nativ
 import { Ionicons } from '@expo/vector-icons';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import TrainListCard from "@/src/components/ui/trainListCard";
+import { useAppSelector } from "@/src/store/hooks";
 
 const TrainList = () => {
-    const { fromCode, toCode, fromName, toName  } = useLocalSearchParams<{ 
+    const { fromCode, toCode, fromName, toName  } = useLocalSearchParams<{
         fromCode: string; toCode: string; fromName:string; toName:string
     
     }>();
+
+    const { dateSelect } = useAppSelector((state) => state.locationFetch);
+
     
     return (
         <>
@@ -58,7 +62,7 @@ const TrainList = () => {
                 </View>
 
                 <ScrollView>
-                    <TrainListCard fromCode={fromCode} toCode={toCode}  date={'5-11-2025'}/>
+                    <TrainListCard fromCode={fromCode} toCode={toCode}  date={dateSelect}/>
                 </ScrollView>
                 
             </View>
