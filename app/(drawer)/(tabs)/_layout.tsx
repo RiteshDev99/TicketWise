@@ -9,7 +9,7 @@ export default function TabLayout() {
     return (
         <Tabs
             screenOptions={{
-                tabBarActiveTintColor: '#5b66d9',
+                tabBarActiveTintColor: '#135ced',
                 header: ({ route, options }) => (
                     <CustomHeader
                         routeName={route.name}
@@ -18,6 +18,7 @@ export default function TabLayout() {
                 ),
                 tabBarStyle: {
                     paddingBottom: insets.bottom,
+                    backgroundColor:'#171e2e',
                     height: 60 + insets.bottom,
                 },
             }}

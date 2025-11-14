@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, StatusBar, Image } from "react-native";
 import { router, useNavigation } from "expo-router";
 import { DrawerActions } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
@@ -16,36 +16,47 @@ const CustomHeader = ({ routeName, title }) => {
     const headerTitle = titles[routeName] ?? title;
 
     return (
+        
+        <>
+            <StatusBar backgroundColor="#101621" barStyle="light-content" />
+
+      
         <SafeAreaView style={styles.safeArea} edges={["top"]}>
             <View style={styles.header}>
-                <TouchableOpacity onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>
-                    <Ionicons size={28} name="menu-outline" color="#14223B" />
-                </TouchableOpacity>
+                {/*<TouchableOpacity onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>*/}
+                {/*    <Ionicons size={28} name="menu-outline" color="#fff" />*/}
+                {/*</TouchableOpacity>*/}
 
                 <Text style={styles.title}>
                     <Text style={styles.title}>{headerTitle}</Text>
                 </Text>
 
                 <TouchableOpacity
-                    style={styles.notificationButton}
+                    className='flex-row items-center justify-evenly px-3  py-2 rounded-full bg-[#192233] gap-x-2 border border-[0.5px] border-gray-600'
                     onPress={() => router.push("/(screens)/Notification")}
                     activeOpacity={0.6}
                 >
-                    <Ionicons name="notifications-outline" size={18} color="#fff" />
+                   <Image
+                          className='w-6 h-6'
+                       source={require("../../assets/images/coin.png")}
+                       
+                   />
+                    <Text className='text-[#fff]'>56088</Text>
                 </TouchableOpacity>
             </View>
         </SafeAreaView>
+        </>
     );
 };
 
 const styles = StyleSheet.create({
     safeArea: {
-        backgroundColor: "#f7f7f7",
+        backgroundColor: "#101621",
     },
     header: {
         height: 56,
         width: "100%",
-        backgroundColor: "#f7f7f7",
+        backgroundColor: "#101621",
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
@@ -53,17 +64,10 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 20,
-        color: "#000000",
+        color: "#ffffff",
         fontWeight: "600",
     },
-    notificationButton: {
-        width: 32,
-        height: 32,
-        borderRadius: 16,
-        backgroundColor: "#5b66d9",
-        justifyContent: "center",
-        alignItems: "center",
-    },
+  
 });
 
 export default CustomHeader;

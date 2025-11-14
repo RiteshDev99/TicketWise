@@ -3,7 +3,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 const RecentSearchCard = () => {
     return(
-        <View className='w-[90vw] h-20 bg-white rounded-2xl shadow-lg mt-6 flex-row justify-between items-center px-5'>
+        <View className='w-[90vw] h-20 bg-[#192233] rounded-2xl shadow-lg mt-6 flex-row justify-between items-center px-5'>
             <View className='flex-col gap-2'>
                 <Text className='text-lg font-semibold'>Marudhar Express</Text>
                 <Text>#7687687</Text>

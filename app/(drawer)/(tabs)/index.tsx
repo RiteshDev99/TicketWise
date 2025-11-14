@@ -23,7 +23,7 @@ const IndexTab: React.FC = () => {
         {
             id: "1",
             text: "Check PNR Status",
-            icon: <FontAwesome6 name="building-circle-check" size={22} color="#999" />,
+            icon: <FontAwesome6 name="building-circle-check" size={22} color="#135ced" />,
         },
         {
             id: "2",
@@ -32,7 +32,7 @@ const IndexTab: React.FC = () => {
                 <MaterialCommunityIcons
                     name="ticket-confirmation-outline"
                     size={24}
-                    color="#999"
+                    color="#135ced"
                 />
             ),
         },
@@ -84,12 +84,12 @@ const IndexTab: React.FC = () => {
     }, [selected, dispatch]);
 
     return (
-        <ScrollView className="flex-1 bg-[#f5f5f5]">
+        <ScrollView className="flex-1 bg-[#101521]">
             <View className="flex-1 items-center pb-20">
-                <View className="px-6 py-8 w-[90vw] bg-[#ffffff] mt-6 rounded-3xl shadow-lg">
-                    <View className="mb-4 relative z-20">
+                <View className="px-6 py-8 w-[90vw] bg-[#192233] mt-6 rounded-3xl shadow-lg">
+                    <View className="mb-4 relative z-20 border border-gray-600 rounded-xl">
                         <TouchableOpacity
-                            className="flex-row items-center bg-white rounded-2xl px-4 py-2 border-b border-gray-200"
+                            className="flex-row items-center bg-[#101521] rounded-xl px-4 py-2 "
                             activeOpacity={1.6}
                             onPress={() =>
                                 router.push({
@@ -101,21 +101,23 @@ const IndexTab: React.FC = () => {
                                 })
                             }
                         >
-                            <MaterialIcons name="train" size={24} color="#999" />
+                            <View className='border-r border-gray-600 pr-3'>
+                                <MaterialIcons name="train" size={24} color="#135ced" />
+                            </View>
                             <TextInput
-                                className="flex-1 ml-3 text-lg text-gray-800"
+                                className="flex-1 ml-3 text-lg text-[#fff]"
                                 placeholder="From Station"
                                 value={fetchFromLocation}
                                 editable={false}
-                                placeholderTextColor="#999"
+                                placeholderTextColor="#fff"
                             />
                         </TouchableOpacity>
                     </View>
 
                     {/* To Station */}
-                    <View className="mb-4 relative z-10">
+                    <View className="mb-4 relative z-10 border border-gray-600 rounded-xl">
                         <TouchableOpacity
-                            className="flex-row items-center bg-white rounded-2xl px-4 py-2 border-b border-gray-200"
+                            className="flex-row items-center bg-[#101521] rounded-xl px-4 py-2 "
                             activeOpacity={1.6}
                             onPress={() =>
                                 router.push({
@@ -127,23 +129,27 @@ const IndexTab: React.FC = () => {
                                 })
                             }
                         >
-                            <MaterialIcons name="location-on" size={24} color="#999" />
+                            <View className='border-r border-gray-600 pr-3'>
+                                <MaterialIcons name="location-on" size={24} color="#135ced" />
+                            </View>
                             <TextInput
-                                className="flex-1 ml-3 text-lg text-gray-800"
+                                className="flex-1 ml-3 text-lg text-[#fff]"
                                 placeholder="To Station"
                                 value={fetchToLocation}
-                                placeholderTextColor="#999"
+                                placeholderTextColor="#fff"
                                 editable={false}
                             />
                         </TouchableOpacity>
                     </View>
 
                     {/* Date Selector */}
-                    <View className="mb-8 relative z-20">
-                        <View className="flex-row items-center bg-white rounded-2xl px-4 py-2 border-b border-gray-200 overflow-hidden gap-x-2 pb-6">
-                            <MaterialIcons name="calendar-month" size={24} color="#999" />
+                    <View className="mb-8 relative z-20 border border-gray-600 rounded-xl">
+                        <View className="flex-row  items-center bg-[#101521] rounded-xl px-4 py-2  overflow-hidden gap-x-2 pb-6">
+                            <View className='border-r border-gray-600 pr-3'>
+                                <MaterialIcons name="calendar-month" size={24} color="#135ced" />
+                            </View>
 
-                            <Text className="text-gray-800 font-medium text-sm">
+                            <Text className="text-[#fff] font-medium text-sm">
                                 {formatDate(selectedDate)}
                             </Text>
 
@@ -155,15 +161,15 @@ const IndexTab: React.FC = () => {
                                         onPress={() => setSelected(item.label)}
                                         className={`py-1 px-2 border rounded-xl ${
                                             selected === item.label
-                                                ? "border-[#5b66d9] bg-blue-50"
-                                                : "border-gray-200"
+                                                ? "border-[#5b66d9] bg-[#135ced]"
+                                                : "border-gray-600"
                                         }`}
                                     >
                                         <Text
                                             className={`text-[10px] ${
                                                 selected === item.label
-                                                    ? "text-blue-600 font-semibold"
-                                                    : "text-gray-700"
+                                                    ? "text-[#fff] font-semibold"
+                                                    : "text-[#fff]"
                                             }`}
                                         >
                                             {item.label}
@@ -178,8 +184,8 @@ const IndexTab: React.FC = () => {
                     <TouchableOpacity
                         className={`rounded-2xl py-4 flex-row justify-center items-center gap-x-1 shadow-lg ${
                             fetchFromLocation && fetchToLocation
-                                ? "bg-[#5b66d9]"
-                                : "bg-gray-400"
+                                ? "bg-[#135bec]"
+                                : "bg-[#135bec]"
                         }`}
                         onPress={() =>
                             router.push({

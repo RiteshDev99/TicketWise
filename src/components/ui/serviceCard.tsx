@@ -12,15 +12,15 @@ export type serviceProps = {
 export default  function ServiceCard(Props: serviceProps) {
     return(
         <>
-            <TouchableOpacity className='w-[90vw] h-20 bg-white rounded-2xl shadow-lg mt-6 flex-row justify-between items-center px-5'
+            <TouchableOpacity className='w-[90vw] h-20 bg-[#192233] rounded-2xl shadow-lg mt-6 flex-row justify-between items-center px-5'
                               activeOpacity={0.8}
                               onPress={Props.onPress}
             >
-                <View className=' flex-row gap-x-4'>
+                <View className=' flex-row gap-x-4 '>
                     {Props.icon}
-                    <Text className='text-lg'>{Props.text}</Text>
+                    <Text className='text-lg text-[#fff]'>{Props.text}</Text>
                 </View>
-                <MaterialIcons name="keyboard-arrow-right" size={24} color="#999" />
+                <MaterialIcons name="keyboard-arrow-right" size={24} color="#135ced" />
             </TouchableOpacity>
         </>
     )
