@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import locationFetchReducer from "./features/locationFetchSlice";
-import stationReducer from "./features/station-searchSlice";
+import trainInfoReducer from "./features/trainServices/train-info-slice";
 
 export const store = configureStore({
     reducer: {
         locationFetch: locationFetchReducer,
-        station: stationReducer,
+        trainInfo: trainInfoReducer,
 
     },
 })
