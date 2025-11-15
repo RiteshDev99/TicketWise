@@ -1,7 +1,5 @@
 import { StyleSheet, View, Text, TouchableOpacity, StatusBar, Image } from "react-native";
 import { router, useNavigation } from "expo-router";
-import { DrawerActions } from "@react-navigation/native";
-import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const CustomHeader = ({ routeName, title }) => {

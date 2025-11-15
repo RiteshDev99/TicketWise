@@ -18,17 +18,17 @@ const SeatClassCard = ({
                        }: SeatClassCardProps) => {
     return (
         <View
-            className={`rounded-2xl border shadow-sm mx-2 mb-3 p-3 min-w-[150px] min-h-[100px] ${
+            className={`rounded-2xl border-[0.3px] shadow-sm mx-2 mb-3 p-3 min-w-[150px] min-h-[100px] ${
                 available?.toLowerCase().includes('avail')
-                    ? 'bg-green-50 border-green-200'
+                    ? 'bg-[#101621] border-green-600'
                     : available?.toLowerCase().includes('wl')
-                        ? 'bg-yellow-50 border-yellow-200'
-                        : 'bg-red-50 border-red-200'
+                        ? 'bg-[#101621] border-yellow-600'
+                        : 'bg-[#101621] border-red-600'
             }`}
         >
             <View className='flex-row justify-between items-center '>
                 <View className="flex-row items-center justify-between mb-1">
-                    <Text className="text-base font-bold text-gray-800">{name}</Text>
+                    <Text className="text-base font-bold text-[#fff]">{name}</Text>
 
                     {isTatkal && (
                         <View className="bg-orange-500 px-2 py-0.5 rounded-full">
@@ -37,19 +37,19 @@ const SeatClassCard = ({
                     )}
                 </View>
 
-                <Text className="text-base font-semibold text-gray-700">
+                <Text className="text-base font-semibold text-[#fff]">
                     {price ? `₹${price}` : '—'}
                 </Text>
             </View>
 
 
             <Text
-                className={`font-bold text-base mt-1 `}
+                className={`font-bold text-base mt-1 text-[#fff] `}
             >
                 {available || '—'}
             </Text>
 
-            <Text className="text-gray-400 text-xs mt-2">{updatedAgo}</Text>
+            <Text className="text-[#fff] text-xs mt-2">{updatedAgo}</Text>
         </View>
     );
 };

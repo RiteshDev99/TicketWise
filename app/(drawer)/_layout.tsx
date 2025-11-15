@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     },
     drawerStyle: {
         width: 300,
-        backgroundColor: "#fff",
+        backgroundColor: "#000",
     },
     userInfo: {
         height: 160,

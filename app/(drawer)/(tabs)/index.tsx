@@ -80,7 +80,6 @@ const IndexTab: React.FC = () => {
     
     useEffect(() => {
         dispatch(dateSelect(formattedDate));
-        console.log("Selected Date:", formattedDate);
     }, [selected, dispatch]);
 
     return (

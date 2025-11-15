@@ -23,7 +23,7 @@ const TrainList = () => {
                     headerTitleAlign: 'center',
                     animation: 'slide_from_right',
                     headerStyle: {
-                        backgroundColor: '#5b66d9',
+                        backgroundColor: '#101621',
                     },
                     headerTintColor: '#fff',
                     headerRight: () => (
@@ -31,16 +31,13 @@ const TrainList = () => {
                             <TouchableOpacity className="p-2">
                                 <Ionicons name="share-social-outline" size={24} color="white" />
                             </TouchableOpacity>
-                            <TouchableOpacity className="p-2">
-                                <Ionicons name="ellipsis-vertical" size={24} color="white" />
-                            </TouchableOpacity>
                         </View>
                     ),
                 }}
             />
 
-            <View className="flex-1">
-                <View className="bg-[#5b66d9] pb-6 pt-3">
+            <View className="flex-1 bg-[#101621]">
+                <View className="bg-[#101621] pb-6 pt-3">
                     <View className="px-4">
                         <View className="flex-row items-center justify-between">
                             <View className="flex-1 items-center">

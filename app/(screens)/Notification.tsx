@@ -1,4 +1,4 @@
-import {View, Text} from "react-native";
+import {View, Text, Image} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
 import {Stack} from "expo-router";
 import React from "react";
@@ -8,15 +8,22 @@ const Notification = () => {
         <>
             <Stack.Screen
                 options={{
-                    headerTitle: "Notification",
+                    headerTitle: "Coins",
                     headerTitleAlign: "center",
                     animation: "slide_from_right",
+                    headerStyle: { backgroundColor: "#101521" },
+                    headerTintColor: "#fff",
+
                 }}
             />
 
-            <View className='h-full w-full flex items-center justify-center gap-5'>
-                <Ionicons name="notifications-off-sharp" size={38} color="#000" />
-                <Text className='text-2xl'>Notification</Text>
+            <View className=' flex-1 bg-[#101521] flex items-center justify-center gap-5'>
+                <Image
+                    className='w-40 h-40'
+                    source={require("../../assets/images/coin.png")}
+
+                />
+                <Text className='text-2xl text-[#fff]'>Your Coins</Text>
             </View>
         </>
 
