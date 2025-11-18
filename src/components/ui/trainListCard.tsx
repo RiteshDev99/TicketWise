@@ -73,7 +73,7 @@ const TrainListCard = ({ fromCode, toCode, date }: any) => {
                                     <Text className="text-xl font-bold text-[#fff]">
                                         {train.arrivalTime}
                                     </Text>
-                                    <Text className="text-green-800 text-xs mt-1">
+                                    <Text className="text-[#135ced] text-xs mt-1">
                                         {train.fromStnCode}
                                     </Text>
                                 </View>

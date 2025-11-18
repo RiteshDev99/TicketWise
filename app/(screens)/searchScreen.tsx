@@ -1,9 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { StatusBar, TextInput, View, FlatList, TouchableOpacity, Text, ActivityIndicator } from "react-native";
+import React, { useState, useEffect, useRef } from "react";
+import {
+    StatusBar,
+    TextInput,
+    View,
+    FlatList,
+    TouchableOpacity,
+    Text,
+    ActivityIndicator,
+    Keyboard,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import { Ionicons, Entypo } from "@expo/vector-icons";
-import { useAppDispatch   } from '@/src/store/hooks'
+import { useAppDispatch } from "@/src/store/hooks";
 import { useSelector } from "react-redux";
 import { RootState } from "@/src/store/store";
 import {
@@ -14,28 +23,27 @@ import { Station } from "@/src/store/features/trainServices/train-info-API";
 import { setFromLocation, setToLocation } from "@/src/store/features/locationFetchSlice";
 
 export default function SearchScreen() {
+
+    const inputRef = useRef<TextInput>(null); 
+
     const [query, setQuery] = useState("");
     const [searched, setSearched] = useState(false);
-    const {PlaceHolderName} = useLocalSearchParams<{ PlaceHolderName: string }>();
-    const {fieldType} = useLocalSearchParams<{ fieldType: "from" | "to" }>();
+    const { PlaceHolderName } = useLocalSearchParams<{ PlaceHolderName: string }>();
+    const { fieldType } = useLocalSearchParams<{ fieldType: "from" | "to" }>();
 
-    
     const dispatch = useAppDispatch();
     const { stations, loading } = useSelector((state: RootState) => state.trainInfo);
 
     useEffect(() => {
-        dispatch(fetchStationSuggestions(""));
-    }, [dispatch]);
-
-    useEffect(() => {
         if (!query.trim()) {
             dispatch(clearStations());
-            setSearched(false);
+            dispatch(fetchStationSuggestions(""));
+            setSearched(true);
             return;
         }
 
         const delayDebounce = setTimeout(() => {
-            setSearched(true);
+            setSearched(false);
             dispatch(fetchStationSuggestions(query));
         }, 200);
 
@@ -57,18 +65,25 @@ export default function SearchScreen() {
 
         router.push("/(drawer)/(tabs)");
     };
-    
-    const renderSearchResult = ({item}: { item: Station }) => (
-        <TouchableOpacity className="p-4 border-b border-gray-600 flex-row items-center gap-4"
-                          onPress={() => handleResultPress(item, fieldType)}
+
+
+    const renderSearchResult = ({ item }: { item: Station }) => (
+        <TouchableOpacity
+            className="p-4 border-b border-gray-600 flex-row items-center gap-4"
+            activeOpacity={0.7}
+            onPress={() => {
+                inputRef.current?.blur();
+                    handleResultPress(item, fieldType);
+            }}
         >
             <View className="w-16 h-8 bg-[#135ced] rounded-lg justify-center items-center">
-                <Text className="text-[13px] text-white  ">{item.stationCode}</Text>
+                <Text className="text-[13px] text-white">{item.stationCode}</Text>
             </View>
             <Text className="text-[15px] text-[#fff]">{item.stationName}</Text>
         </TouchableOpacity>
     );
-    
+
+
     return (
         <>
             <Stack.Screen
@@ -90,7 +105,9 @@ export default function SearchScreen() {
                         style={{ marginRight: 12 }}
                         onPress={() => router.back()}
                     />
+
                     <TextInput
+                        ref={inputRef}       // <-- FIX ADDED
                         placeholder={PlaceHolderName}
                         className="flex-1 text-lg text-[#fff] py-2 px-2"
                         placeholderTextColor="#fff"
@@ -101,17 +118,18 @@ export default function SearchScreen() {
                         value={query}
                         onChangeText={setQuery}
                     />
+
                     {
                         loading ?
                             <ActivityIndicator size="small" color="#135ced" />
-                            : 
-                            <Entypo 
-                                name="cross" size={24} color="#fff"
-                                onPress={() => setQuery('')}
-
+                            :
+                            <Entypo
+                                name="cross"
+                                size={24}
+                                color="#fff"
+                                onPress={() => setQuery("")}
                             />
                     }
-
                 </View>
 
                 {!loading && searched && stations?.length === 0 && (
@@ -119,10 +137,12 @@ export default function SearchScreen() {
                         <Text className="text-gray-500 text-lg">No stations found</Text>
                     </View>
                 )}
+
                 <FlatList
                     data={stations}
                     keyExtractor={(item) => `${item.stationCode}-${item.stationName}`}
                     renderItem={renderSearchResult}
+                    keyboardShouldPersistTaps="handled" 
                 />
             </SafeAreaView>
         </>

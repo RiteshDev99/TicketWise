@@ -194,7 +194,7 @@ const IndexTab: React.FC = () => {
                                     toName: fetchToLocation,
                                     fromCode: fetchFromLocationCode,
                                     toCode: fetchToLocationCode,
-                                    travelDate: formattedDate, // ✅ Use formatted date here
+                                    travelDate: formattedDate, 
                                 },
                             })
                         }

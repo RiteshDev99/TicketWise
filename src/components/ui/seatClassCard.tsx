@@ -18,10 +18,10 @@ const SeatClassCard = ({
                        }: SeatClassCardProps) => {
     return (
         <View
-            className={`rounded-2xl border-[0.3px] shadow-sm mx-2 mb-3 p-3 min-w-[150px] min-h-[100px] ${
+            className={`rounded-3xl border-[1px] shadow-sm mx-2 mb-3 p-3 min-w-[150px] min-h-[100px] ${
                 available?.toLowerCase().includes('avail')
                     ? 'bg-[#101621] border-green-600'
-                    : available?.toLowerCase().includes('wl')
+                    : available?.toLowerCase().includes('%')
                         ? 'bg-[#101621] border-yellow-600'
                         : 'bg-[#101621] border-red-600'
             }`}

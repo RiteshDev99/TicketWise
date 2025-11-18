@@ -112,12 +112,15 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
     );
 };
 
-export default function Layout() {
+export default function DrawerLayout() {
     return (
         <Drawer
             screenOptions={{
                 headerShown: false,
-                drawerStyle: styles.drawerStyle,
+                drawerStyle: {
+                    width: 300,
+                    backgroundColor: "#000",
+                },
             }}
             drawerContent={(props) => <CustomDrawerContent {...props} />}
         />
@@ -132,10 +135,6 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         paddingBottom: 20,
         alignItems: "center",
-    },
-    drawerStyle: {
-        width: 300,
-        backgroundColor: "#000",
     },
     userInfo: {
         height: 160,
