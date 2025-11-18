@@ -31,7 +31,7 @@ const CustomHeader = ({ routeName, title }) => {
 
                 <TouchableOpacity
                     className='flex-row items-center justify-evenly px-3  py-2 rounded-full bg-[#192233] gap-x-2 border border-[0.5px] border-gray-600'
-                    onPress={() => router.push("/(screens)/Notification")}
+                    onPress={() => router.push("/(screens)/Coins")}
                     activeOpacity={0.6}
                 >
                    <Image
