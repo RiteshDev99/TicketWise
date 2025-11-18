@@ -12,9 +12,8 @@ export default function Layout() {
 
                 <Stack
                     screenOptions={{
-                        animation: "slide_from_right",
-                        presentation: "card", // IMPORTANT → removes white flash
-                        contentStyle: { backgroundColor: "#000" }, // fixes background flash everywhere
+                        animation:'default',
+                        contentStyle: { backgroundColor: "#000" },
                         headerStyle: { backgroundColor: "#000" },
                         headerTintColor: "#fff",
                     }}

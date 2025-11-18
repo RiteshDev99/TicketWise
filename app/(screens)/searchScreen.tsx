@@ -62,7 +62,7 @@ export default function SearchScreen() {
             dispatch(setToLocation(payload));
         }
 
-        router.push("/(drawer)/(tabs)");
+        router.back();
     };
 
 
@@ -106,7 +106,7 @@ export default function SearchScreen() {
                     />
 
                     <TextInput
-                        ref={inputRef}       // <-- FIX ADDED
+                        ref={inputRef}
                         placeholder={PlaceHolderName}
                         className="flex-1 text-lg text-[#fff] py-2 px-2"
                         placeholderTextColor="#fff"

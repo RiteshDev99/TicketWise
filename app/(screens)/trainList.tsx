@@ -1,8 +1,9 @@
-import { View, Text, TouchableOpacity, ScrollView, StatusBar } from 'react-native';
+import { View, Text,  StatusBar } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
+import { Stack, useLocalSearchParams, } from 'expo-router';
 import TrainListCard from "@/src/components/ui/trainListCard";
 import { useAppSelector } from "@/src/store/hooks";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const TrainList = () => {
     const { fromCode, toCode, fromName, toName  } = useLocalSearchParams<{
@@ -21,24 +22,16 @@ const TrainList = () => {
                 options={{
                     headerTitle: 'Search Results',
                     headerTitleAlign: 'center',
-                    animation: 'slide_from_right',
+                    animation: 'flip',
                     headerStyle: {
                         backgroundColor: '#101621',
                     },
                     headerTintColor: '#fff',
-                    headerRight: () => (
-                        <View className="flex-row items-center gap-4 mr-2">
-                            <TouchableOpacity className="p-2">
-                                <Ionicons name="share-social-outline" size={24} color="white" />
-                            </TouchableOpacity>
-                        </View>
-                    ),
                 }}
             />
-
-            <View className="flex-1 bg-[#101621]">
-                <View className="bg-[#101621] pb-6 pt-3">
-                    <View className="px-4">
+            
+            <SafeAreaView className="flex-1 bg-[#101621]">
+                <View className="bg-[#101621] pb-6 px-4">
                         <View className="flex-row items-center justify-between">
                             <View className="flex-1 items-center">
                                 <Text className="text-white text-lg font-semibold"  numberOfLines={1}>{fromCode} - {fromName}</Text>
@@ -54,14 +47,13 @@ const TrainList = () => {
                                 <Text className="text-white text-sm opacity-90">Junction</Text>
                             </View>
                         </View>
-                    </View>
                 </View>
 
-                <ScrollView>
+
                     <TrainListCard fromCode={fromCode} toCode={toCode}  date={dateSelect}/>
-                </ScrollView>
+
                 
-            </View>
+            </SafeAreaView>
         </>
     );
 };

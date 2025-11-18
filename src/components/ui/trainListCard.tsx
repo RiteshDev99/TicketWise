@@ -4,9 +4,10 @@ import { useSelector } from "react-redux";
 
 import { MaterialIcons } from "@expo/vector-icons";
 import SeatClassCard from "./seatClassCard";
-import { RootState } from "../../store/store"; 
+import { RootState } from "../../store/store";
 import { fetchTrainList } from "@/src/store/features/trainServices/train-info-thunk";
 import { useAppDispatch } from "@/src/store/hooks";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const TrainListCard = ({ fromCode, toCode, date }: any) => {
     const dispatch = useAppDispatch();
@@ -30,28 +31,37 @@ const TrainListCard = ({ fromCode, toCode, date }: any) => {
     const trains = trainList?.trainList || [];
 
     return (
-        <ScrollView className="flex-1 p-4">
-            {loading && (
-                <ActivityIndicator size="large" color="#5b66d9" />
-            )}
-            
-            {!loading && error && (
-                <Text className="text-center text-red-600 font-semibold">
-                    {error}
-                </Text>
-            )}
+            <ScrollView
+                className="flex-1 bg-[#101521]"
+                contentContainerStyle={{ flexGrow: 1 }}
+            >
+                {(loading || error || trains.length === 0) && (
+                    <View className="flex-1 items-center justify-center">
+                        {loading && (
+                            <ActivityIndicator size="large" color="#5b66d9" />
+                        )}
 
-            {!loading && !error && trains.length === 0 && (
-                <Text className="text-center text-gray-500">
-                    No trains found.
-                </Text>
-            )}
-            
-            {!loading &&
-                trains.map((train) => (
+                        {!loading && error && (
+                            <Text className="text-center text-red-600 font-semibold">
+                                {error}
+                            </Text>
+                        )}
+
+                        {!loading && !error && trains.length === 0 && (
+                            <View className="items-center gap-4">
+                                <MaterialIcons name="train" size={64} color="#135ced" />
+                                <Text className="text-center text-gray-500">
+                                    No trains found.
+                                </Text>
+                            </View>
+                        )}
+                    </View>
+                )}
+
+                {!loading && trains.length > 0 && trains.map((train) => (
                     <View
                         key={train.trainNumber}
-                        className="bg-[#192233] rounded-xl shadow-md overflow-hidden mb-4"
+                        className="bg-[#192233] rounded-xl shadow-md overflow-hidden mb-4 mx-4"
                     >
                         <View className="px-4 py-3 border-b border-gray-600">
                             <View className="flex-row items-center mb-2">
@@ -67,7 +77,7 @@ const TrainListCard = ({ fromCode, toCode, date }: any) => {
                                     color="#999"
                                 />
                             </View>
-                            
+
                             <View className="flex-row items-center justify-between">
                                 <View className="flex-row items-center gap-3">
                                     <Text className="text-xl font-bold text-[#fff]">
@@ -125,7 +135,7 @@ const TrainListCard = ({ fromCode, toCode, date }: any) => {
                         </ScrollView>
                     </View>
                 ))}
-        </ScrollView>
+            </ScrollView>
     );
 };
 
